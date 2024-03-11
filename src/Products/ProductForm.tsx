@@ -22,6 +22,11 @@ const ProductForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(addProduct(product));
+    setProduct({
+      id: 0,
+      title: "",
+      price: 0,
+    });
   };
 
   return (
@@ -49,7 +54,7 @@ const ProductForm = () => {
           value={price}
           onChange={handleChange}
         />
-        <button type="submit">Add Price</button>
+        <button type="submit">Add Product</button>
       </form>
     </>
   );
