@@ -21,7 +21,11 @@ const ProductForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // * DISPATCH ADD PRODUCT HERE
     dispatch(addProduct(product));
+
+    // reset the form
     setProduct({
       id: 0,
       title: "",

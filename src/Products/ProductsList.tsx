@@ -1,12 +1,15 @@
-import { useSelector } from "react-redux";
-import { getProductsSelector, removeProduct } from "./products.slice";
-import { useAppDispatch } from "../store.hooks";
+import { Product, getProductsSelector, removeProduct } from "./products.slice";
+import { useAppDispatch, useAppSelector } from "../store.hooks";
+import { addToCart } from "../Cart/cart.slice";
 
 const ProductList = () => {
-  const products = useSelector(getProductsSelector);
+  const products = useAppSelector(getProductsSelector);
   const dispatch = useAppDispatch();
 
-  const removeFromStore = (id: number) => dispatch(removeProduct(id));
+  // * DISPATCH ADD TO CART HERE
+  const addToCartHandler = (product: Product) => dispatch(addToCart(product));
+  // * DISPATCH REMOVE PRODUCT HERE
+  const removeProductHandler = (id: number) => dispatch(removeProduct(id));
 
   return (
     <div>
@@ -16,8 +19,9 @@ const ProductList = () => {
           <span>
             {product.title} : ${product.price}
           </span>
-          <button onClick={() => removeFromStore(product.id)}>
-            Remove from the store
+          <button onClick={() => addToCartHandler(product)}>Add to Cart</button>
+          <button onClick={() => removeProductHandler(product.id)}>
+            Remove Product
           </button>
         </div>
       ))}
