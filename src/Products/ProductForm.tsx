@@ -1,10 +1,17 @@
 import { useState } from "react";
 
-import { Product, addProduct } from "./products.slice";
-import { useAppDispatch } from "../store.hooks";
+import {
+  Product,
+  addProduct,
+  addProductAsync,
+  getErrorMessage,
+} from "./products.slice";
+
+import { useAppDispatch, useAppSelector } from "../store.hooks";
 
 const ProductForm = () => {
   const dispatch = useAppDispatch();
+  const errorMessage = useAppSelector(getErrorMessage);
 
   const [product, setProduct] = useState<Product>({
     id: 0,
@@ -23,7 +30,8 @@ const ProductForm = () => {
     e.preventDefault();
 
     // * DISPATCH ADD PRODUCT HERE
-    dispatch(addProduct(product));
+    // dispatch(addProduct(product));
+    dispatch(addProductAsync(product));
 
     // reset the form
     setProduct({
@@ -36,6 +44,7 @@ const ProductForm = () => {
   return (
     <>
       <h2>Add Game to The Store</h2>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <form action="" onSubmit={handleSubmit}>
         <input
           type="text"
